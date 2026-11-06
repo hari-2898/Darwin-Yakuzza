@@ -1,0 +1,125 @@
+main.xml
+
+  <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp" >
+
+ <EditText
+     android:id="@+id/number1"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:hint="enter number 1"
+     android:inputType="numberDecimal" />
+
+ <EditText
+     android:id="@+id/number2"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:hint="enter number 2"
+     android:layout_marginTop="20dp"
+     android:inputType="numberDecimal" />
+
+ <TextView
+     android:id="@+id/result_text"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_marginTop="20dp"
+     android:textSize="20sp"
+     android:textColor="@android:color/black"
+     android:textStyle="bold" />
+
+ <Button
+     android:id="@+id/add_btn"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_marginTop="20dp"
+     android:text="+" />
+
+ <Button
+        android:id="@+id/sub_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="-" />
+
+  <Button
+        android:id="@+id/mul_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="*" />
+
+  <Button
+        android:id="@+id/div_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="/" />
+
+ <Button
+     android:id="@+id/clear_btn"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:text="Clear" />
+
+    main.java
+
+    
+package com.example.calculator;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.*;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText n1, n2;
+    TextView result;
+    double a, b, c;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        n1 = findViewById(R.id.number1);
+        n2 = findViewById(R.id.number2);
+        result = findViewById(R.id.result_text);
+
+        Button add = findViewById(R.id.add_btn);
+        Button sub = findViewById(R.id.sub_btn);
+        Button mul = findViewById(R.id.mul_btn);
+        Button div = findViewById(R.id.div_btn);
+        Button clear = findViewById(R.id.clear_btn);
+
+        add.setOnClickListener(v -> calculate('+'));
+        sub.setOnClickListener(v -> calculate('-'));
+        mul.setOnClickListener(v -> calculate('*'));
+        div.setOnClickListener(v -> calculate('/'));
+
+        clear.setOnClickListener(v -> {
+            n1.setText("");
+            n2.setText("");
+            result.setText("");
+        });
+    }
+
+    void calculate(char op) {
+        a = Double.parseDouble(n1.getText().toString());
+        b = Double.parseDouble(n2.getText().toString());
+
+        if (op == '+') c = a + b;
+        else if (op == '-') c = a - b;
+        else if (op == '*') c = a * b;
+        else if (op == '/') c = a / b;
+
+        result.setText("Result: " + c);
+    }
+}
+
+
+</LinearLayout>
